@@ -5,12 +5,15 @@ Project for fibonacci web service demo
 
 ### Prerequest
 
-1. Install golang in your local machine. the minimum version is 1.8.0
+1. Install golang in your local machine. the minimum version is 1.9.0
 
-### To setup the running dev enviroment locally
+
+### To check the running dev enviroment locally
+In ideal world, it should run "dep status" to check the status.
+But in China, due to GFW, this command sometimes hanging due to network connection. shamed about it.
 
 ```sh
-make restore
+make check_env
 ```
 
 
@@ -18,7 +21,12 @@ make restore
 
 ```sh
 git clone {{repo}}
-make clean build
+make build
+```
+### To perform unit test
+
+```sh
+make test
 ```
 
 
@@ -32,8 +40,3 @@ make lint
 
 Fix the smelled code until the command successfully returns.
 
-### To add the a external go package in the code
-
-```sh
-godep get github.com/pkg/errors
-```

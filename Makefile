@@ -47,7 +47,9 @@ SERVICE_NAME := $(strip $(notdir $(patsubst %/,%,$(MKFILE_DIR))))
 
 #TODO: We need add some checking for go env.
 check_env:
+	echo "It make me mad due to network issue. run dep status yourself!"
 	echo "System environment validation pass"
+
 
 # List of pkgs for the project
 PKGS:=$(shell export GOPATH=$(GOPATH) && $(GOLIST) ./... | grep -v vendor)
@@ -73,7 +75,9 @@ PACKAGE_DIR := $(GOPATH)/pkg
 # All are .PHONY for now because dependencyness is hard
 .PHONY: $(VET_LIST) $(LINT_LIST) $(CLEAN_LIST) $(TEST_LIST) $(INSTALL_LIST) $(BUILD_LIST) build doc fmt lint test clean vet dist check_env cover FORCE
 
-all: clean build test cover dist
+default: all
+
+all: build test cover dist
 build: $(GODEP) $(BUILD_LIST)
 clean: $(CLEAN_LIST)
 	-rm -rf $(DIST_DIR)
@@ -134,5 +138,6 @@ $(GOCOVXML):
 $(GOLINT):
 	go get -v github.com/golang/lint/golint
 $(GODEP):
+	mkdir -p $(BIN_DIR) || true
 	curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 FORCE:

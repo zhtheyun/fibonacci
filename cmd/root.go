@@ -17,7 +17,10 @@ const (
 	RootCmdDesp = "An application for fibonacci"
 )
 
+// Version represents the binary version.
 var Version string
+
+// BuildDate represents the binary build date.
 var BuildDate string
 
 // init just follows the cobra convention.
