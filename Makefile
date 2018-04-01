@@ -70,12 +70,15 @@ VET_LIST = $(foreach int, $(ALL_LIST), $(int)_vet)
 DIST_DIR := $(GOPATH)/dist
 BIN_DIR := $(GOPATH)/bin
 COVERAGE_DIR := $(GOPATH)/coverage
+
 PACKAGE_DIR := $(GOPATH)/pkg
+
 
 # All are .PHONY for now because dependencyness is hard
 .PHONY: $(VET_LIST) $(LINT_LIST) $(CLEAN_LIST) $(TEST_LIST) $(INSTALL_LIST) $(BUILD_LIST) build doc fmt lint test clean vet dist check_env cover FORCE
 
-default: all
+.DEFAULT_GOAL := all
+
 
 all: build test cover dist
 build: $(GODEP) $(BUILD_LIST)
