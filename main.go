@@ -1,3 +1,5 @@
+//package main is the entry point for fibonacci webservice system.
+//Fibonacci webservice system allow user generate fibonacci number through restful API.
 package main
 
 import "github.com/zhtheyun/fibonacci/cmd"

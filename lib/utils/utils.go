@@ -8,9 +8,9 @@ import "math/big"
 //    start_next: second fib.
 //    numbers: how many fib numbers need to generate
 // Return:
-//    result: fibonacci list
-//    *start: the first element for first (numbers+1) fib
-//    *next: the next element for first (numbers+1) fib
+//    result: fibonacci list contains {numbers}
+//    start: start from {numbers}+1
+//    next: second fib after {numbers}+1
 func GenerateFibonacci(start big.Int, next big.Int, numbers uint64) ([]string, big.Int, big.Int) {
 	var result []string
 	result = make([]string, numbers)

@@ -4,24 +4,10 @@ description: A sample web service for vitustream interview.
 version: v0.0.0.1
 mediaType: application/json
 
-types:
-  error_resp: |
-    {
-      "type": "object",
-      "properties": {
-        "error": {
-          "type":"string"
-        }
-      },
-      "required": [
-        "error"
-      ]
-    }
-
-/fib:
+/fibonacci:
   get:
     queryParameters:
-      number:
+      numbers:
         displayName: fibnacci number.
         type: number
         example: 4
@@ -39,7 +25,7 @@ types:
                   "$schema": "http://json-schema.org/draft-04/schema#",
                   "type": "object",
                   "properties": {
-                    "result": {
+                    "Data": {
                       "type": "string"
                     },
                   },
@@ -50,23 +36,10 @@ types:
                 }
       400:
         description: Request parameters invalid.
-        headers:
-          Content-Type:
-            default: application/json;charset=UTF-8
         body:
-          application/json:
-            type: error_resp
-            example: |
-              {
-                 "error": "invalid number"
-              }
+          example: "invalid number"
 
       500:
         description: Internal server error.
         body:
-          application/json:
-            type: error_resp
-            example: |
-              {
-                "error": "internal_server_error"
-              }
+          example: "internal_server_error"

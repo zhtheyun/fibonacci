@@ -1,5 +1,10 @@
+[![Build Status](https://travis-ci.org/zhtheyun/fibonacci.svg?branch=master)](https://travis-ci.org/zhtheyun/fibonacci) [![GoDoc](https://godoc.org/github.com/zhtheyun/fibonacci?status.svg)](http://godoc.org/github.com/zhtheyun/fibonacci)
+
 # Fibonacci WebService
 Project for fibonacci web service demo
+
+
+
 
 ## Quick Start
 
@@ -40,3 +45,27 @@ make lint
 
 Fix the smelled code until the command successfully returns.
 
+## Usage
+### Check the usage
+./fibonacci -h
+
+### Startup the service using default parameter
+```
+./fibonacci rest
+
+```
+### Startup the service using customized parameter
+
+Startup the service at port 8090, setup the cache numbers to 2000, the maximum numbers 20000 and loglevel to INFO
+The admin should using the cache size to tuning the performance.
+
+```
+export FIB_PORT=8090 FIB_CACHEDNUMBERS=2000 FIB_MAXIMUMNUMBERS=20000 FIB_LOGLEVEL=INFO && ./fibonacci rest
+
+```
+
+### Retrive the first 100 fibonacci numbers
+```
+curl -XGET -i "http://127.0.0.1:8080/fibonacci?numbers=100"
+
+```

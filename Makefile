@@ -23,6 +23,7 @@ VERSION ?= $(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION).$(BUILD_VERSION)
 GOBUILD_VERSION_ARGS := -ldflags "-X main.Version=$(VERSION) -X main.BuildDate=$(BUILD_DATE) "
 
 GOCMD=cd $(MKFILE_DIR) && go
+GODOCCMD=cd $(MKFILE_DIR) && godoc
 GOBUILD=$(GOCMD) build $(GOBUILD_VERSION_ARGS)
 GOCLEAN=$(GOCMD) clean
 GOINSTALL=$(GOCMD) install
@@ -65,6 +66,7 @@ TEST_LIST = $(foreach int, $(ALL_LIST), $(int)_test)
 FMT_TEST = $(foreach int, $(ALL_LIST), $(int)_fmt)
 LINT_LIST = $(foreach int, $(ALL_LIST), $(int)_lint)
 VET_LIST = $(foreach int, $(ALL_LIST), $(int)_vet)
+DOC_LIST = $(foreach int, $(ALL_LIST), $(int)_doc)
 
 
 DIST_DIR := $(GOPATH)/dist
@@ -75,7 +77,7 @@ PACKAGE_DIR := $(GOPATH)/pkg
 
 
 # All are .PHONY for now because dependencyness is hard
-.PHONY: $(VET_LIST) $(LINT_LIST) $(CLEAN_LIST) $(TEST_LIST) $(INSTALL_LIST) $(BUILD_LIST) build doc fmt lint test clean vet dist check_env cover FORCE
+.PHONY: $(VET_LIST) $(DOC_LIST) $(LINT_LIST) $(CLEAN_LIST) $(TEST_LIST) $(INSTALL_LIST) $(BUILD_LIST) build doc fmt lint test clean vet dist check_env cover FORCE
 
 .DEFAULT_GOAL := all
 
@@ -93,6 +95,7 @@ install: $(GODEP) $(INSTALL_LIST)
 test: $(GODEP) $(TEST_LIST)
 fmt: $(FMT_TEST)
 lint: $(LINT_LIST)
+doc: $(DOC_LIST)
 vet: $(GODEP) $(VET_LIST)
 dist: build
 cover: $(GODEP) $(COVERAGE_DIR)/cobertura-coverage.xml
@@ -116,6 +119,8 @@ $(FMT_TEST): %_fmt:
 	$(GOFMT) $*
 $(VET_LIST): %_vet:
 	$(GOVET) $*
+$(DOC_LIST): %_doc:
+	$(GODOCCMD) $*
 
 
 # Coverage output: coverage/$PKG/coverage.out
