@@ -25,7 +25,9 @@ make check_env
 ### To build the binary
 
 ```sh
-git clone {{repo}}
+mkdir -p ${{YOUR WORKINGDIR}}/go/src/github.com/zhtheyun
+git clone https://github.com/zhtheyun/fibonacci.git
+cd fibonacci
 make build
 ```
 ### To perform unit test

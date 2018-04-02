@@ -4,22 +4,17 @@
 # Targets:
 # 	build: Builds the code
 # 	fmt: Formats the source files
-# 	clean: cleans the code
-#       lint: lint the code
+# 	clean: Cleans the code
+#       lint: Lint the code
 #	test: Runs the tests
-#       vendor_get: Install the 3rd party jar file
+#       doc: Generate go doc
 #
-#
-#
-# Go parameters
-
 BUILD_DATE ?= $(shell date +%Y-%m-%d\T%H:%M)
 MAJOR_VERSION ?= 1
 MINOR_VERSION ?= 0
 PATCH_VERSION ?= 0
 BUILD_VERSION ?= 0
 VERSION ?= $(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION).$(BUILD_VERSION)
-# GOBUILD_VERSION_ARGS := -ldflags "-X cmd.Version=$(VERSION) -X main.BuildDate='$(BUILD_DATE)'"
 GOBUILD_VERSION_ARGS := -ldflags "-X main.Version=$(VERSION) -X main.BuildDate=$(BUILD_DATE) "
 
 GOCMD=cd $(MKFILE_DIR) && go

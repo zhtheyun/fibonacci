@@ -1,45 +1,51 @@
 #%RAML 1.0
-title: Fabonacci webservice.
-description: A sample web service for vitustream interview.
-version: v0.0.0.1
-mediaType: application/json
+title: Fabonacci webservice API.
+description: A sample web service for demo.
+version: v1
+
 
 /fibonacci:
   get:
+    description: Get a list of fibonacci numbers
     queryParameters:
       numbers:
-        displayName: fibnacci number.
-        type: number
+        description: Specify the numbers you want to get
+        type: integer
         example: 4
         required: true
-  responses:
-    200:
-      description: Fabonacci list
-      headers:
-        Content-Type:
-          default: application/json;charset=UTF-8
-      body:
-        application/json:
-          type: |
-                {
-                  "$schema": "http://json-schema.org/draft-04/schema#",
-                  "type": "object",
-                  "properties": {
-                    "Data": {
-                      "type": "string"
-                    },
-                  },
-                }
-              example: |
-                {
-                  "result": "[1,1,2,3]"
-                }
+    responses:
+      200:
+         description: Fabonacci list
+         headers:
+           Content-Type:
+            default: application/json;charset=UTF-8
+         body:
+           application/json:
+            example: |
+              {
+                "Data": "[1,1,2,3]"
+              }
       400:
-        description: Request parameters invalid.
-        body:
-          example: "invalid number"
-
+         description: Invalid query parameters.
+         body:
+           plain/text:
+            example: "invalid numbers"
+      404:
+         description: Page not found.
+         body:
+           plain/text:
+            example: "page not found"
       500:
-        description: Internal server error.
-        body:
-          example: "internal_server_error"
+         description: Internal server error.
+         body:
+           plain/text:
+            example: "internal_server_error"
+
+/heartbeat:
+   get:
+    description: heartbeat API
+    responses:
+     200:
+       body:
+         plain/text:
+          example: "I am alive"
