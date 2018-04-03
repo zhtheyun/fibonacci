@@ -2,16 +2,26 @@ package utils
 
 import "math/big"
 
-// GenerateFibonacci used to generate fibonacci string
-// Params:
-//    start: start from
-//    start_next: second fib.
-//    numbers: how many fib numbers need to generate
-// Return:
-//    result: fibonacci list contains {numbers}
-//    start: start from {numbers}+1
-//    next: second fib after {numbers}+1
-func GenerateFibonacci(start big.Int, next big.Int, numbers uint64) ([]string, big.Int, big.Int) {
+// Generator defines an interface to generate the numbers.
+type Generator interface {
+
+	// Generate used to generate fibonacci string
+	// Params:
+	//    start: start from
+	//    start_next: second fib.
+	//    numbers: how many fib numbers need to generate
+	// Return:
+	//    result: fibonacci list contains {numbers}
+	//    start: start from {numbers}+1
+	//    next: second fib after {numbers}+1
+	Generate(start big.Int, next big.Int, numbers uint64) ([]string, big.Int, big.Int)
+}
+
+// GeneratorFibonacciBasicImpl defines a type implment the Generator interface.
+type GeneratorFibonacciBasicImpl uint64
+
+// Generate is a method to generate fibonacci numbers using a very basic way.
+func (fib *GeneratorFibonacciBasicImpl) Generate(start big.Int, next big.Int, numbers uint64) ([]string, big.Int, big.Int) {
 	var result []string
 	result = make([]string, numbers)
 

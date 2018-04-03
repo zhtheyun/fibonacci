@@ -7,7 +7,6 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"github.com/zhtheyun/fibonacci/lib/config"
-	"github.com/zhtheyun/fibonacci/lib/utils"
 	"math/big"
 	"net/http"
 	"os"
@@ -58,7 +57,7 @@ func NewServer(c config.Config) (*Server, error) {
 
 	fibCache = new(FibCache)
 
-	data, start, next := utils.GenerateFibonacci(*big.NewInt(0), *big.NewInt(1), c.CachedNumbers)
+	data, start, next := c.Generator.Generate(*big.NewInt(0), *big.NewInt(1), c.CachedNumbers)
 	fibCache.Data = data
 	fibCache.Start = start
 	fibCache.Next = next

@@ -2,6 +2,8 @@ package config
 
 import (
 	"github.com/spf13/viper"
+
+	"github.com/zhtheyun/fibonacci/lib/utils"
 )
 
 const (
@@ -40,6 +42,9 @@ type Config struct {
 
 	// Build Date
 	BuildDate string
+
+	// Fibonacci number generator
+	Generator utils.Generator
 }
 
 // Build is used to create a Config instance from configuraion file and environment
@@ -56,7 +61,12 @@ func Build() (*Config, error) {
 	v.BindEnv("Port")
 	v.BindEnv("LogLevel")
 	v.BindEnv("CachedNumbers")
+
 	v.BindEnv("MaximumNumbers")
+
+	//FIXME: Ideally we should allow user to specify the generator. but here we just hardcode.
+	var generator utils.Generator
+	generator = new(utils.GeneratorFibonacciBasicImpl)
 
 	return &Config{
 		Port:           uint(v.GetInt("Port")),
@@ -65,5 +75,6 @@ func Build() (*Config, error) {
 		MaximumNumbers: uint64(v.GetInt("MaximumNumbers")),
 		Version:        viper.Get("VERSION").(string),
 		BuildDate:      viper.Get("BUILDDATE").(string),
+		Generator:      generator,
 	}, nil
 }

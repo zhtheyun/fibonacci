@@ -6,7 +6,6 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
 	"github.com/zhtheyun/fibonacci/lib/config"
-	"github.com/zhtheyun/fibonacci/lib/utils"
 	"net/http"
 	"strconv"
 )
@@ -56,7 +55,8 @@ func FibonacciHandler(w http.ResponseWriter, req *http.Request) {
 
 	} else {
 		logrus.Debugf("Cache missing!")
-		result, _, _ := utils.GenerateFibonacci(fibCache.Start, fibCache.Next, numbers-fibCache.Numbers)
+
+		result, _, _ := config.Generator.Generate(fibCache.Start, fibCache.Next, numbers-fibCache.Numbers)
 		fib.Data = append(fibCache.Data, result...)
 	}
 

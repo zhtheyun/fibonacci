@@ -89,8 +89,11 @@ func TestGenerateFibonacci(t *testing.T) {
 		},
 	}
 
+	var fib Generator
+	fib = new(GeneratorFibonacciBasicImpl)
+
 	for _, testcase := range testCases {
-		actualResultData, start, next := GenerateFibonacci(testcase.start, testcase.next, testcase.numbers)
+		actualResultData, start, next := fib.Generate(testcase.start, testcase.next, testcase.numbers)
 		if !StringSliceReflectEqual(actualResultData, testcase.expectedResultData) {
 			t.Errorf("Result data did not match expectation. expect: %s, actual: %s", testcase.expectedResultData, actualResultData)
 		}
